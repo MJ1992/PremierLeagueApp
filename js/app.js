@@ -1,7 +1,7 @@
 var app = angular.module('PL', ['ngRoute']);
 
 
-
+//controller to  display all matches held
 app.controller('allMatchesHeldController', ['$http', function($http) {
     var main = this;
     this.names = ['2015-16', '2016-17'];
@@ -32,8 +32,9 @@ app.controller('allMatchesHeldController', ['$http', function($http) {
 
 
 }]);
+//end
 
-
+//controller to  display details of a single match.
 app.controller('MatchDetailController', ['$http', '$routeParams', function($http, $routeParams) {
     var main = this;
     this.heading = "";
@@ -110,7 +111,8 @@ app.controller('MatchDetailController', ['$http', '$routeParams', function($http
 
 }]);
 
-
+/*controller to display team wise statistics like total matches played, total won, total
+lost, total number of goals scored by that team etc */
 app.controller('tableController', ['$http', '$routeParams', function($http, $routeParams) {
     var main = this;
     this.heading = "";
@@ -144,7 +146,7 @@ app.controller('tableController', ['$http', '$routeParams', function($http, $rou
             method: "GET",
             url: main.baseUrl + "/" + main.selectedSeason + "/en.1.json"
         }).then(function successCallback(response) {
-            //need to search the data in json and assign values to varriable defined above
+  
             console.log(response.data);
             console.log(main.matchDay);
 
@@ -165,7 +167,7 @@ app.controller('tableController', ['$http', '$routeParams', function($http, $rou
             main.teams = main.teamsA.filter(function(item, pos) {
                 return main.teamsA.indexOf(item) == pos;
             });;
-            console.log(main.teams);
+            //console.log(main.teams);
             //console.log(main.matchesObjArray);
 
 
@@ -176,6 +178,7 @@ app.controller('tableController', ['$http', '$routeParams', function($http, $rou
                 var goalScored = 0;
                 var goalConceded = 0;
                 var teamCode = '';
+              //teamObj to store details of a particular team
                 var teamObj = {
                     position: "",
                     name: "",
@@ -224,7 +227,7 @@ app.controller('tableController', ['$http', '$routeParams', function($http, $rou
                     //main.teamObjArray.push(main.teamObj);
                 }
                 teamObj.name = main.teams[k];
-                console.log(teamObj.name);
+               // console.log(teamObj.name);
                 teamObj.code = teamCode;
                 teamObj.wins = (wins);
                 teamObj.drawn = (draw);
@@ -240,9 +243,10 @@ app.controller('tableController', ['$http', '$routeParams', function($http, $rou
                 console.log(main.teamObjArray[k]);
                 console.log(main.teamObjArray);
 
-                //sorted by points
+                //sorting teams based on ranking
                 main.teamObjArray.sort(compareP);
 
+                //function to find ranking of teams by comparing Points ,goal difference and goal scored 
                 function compareP(a, b) {
                     if (a.Points > b.Points)
                         return -1;
@@ -259,11 +263,12 @@ app.controller('tableController', ['$http', '$routeParams', function($http, $rou
                         return 1;
                     return 0;
                 }
-                
+
 
             }
+            //assigning positions to teams
             for (var i = 0; i < main.teamObjArray.length; i++) {
-                main.teamObjArray[i].position = i+1;
+                main.teamObjArray[i].position = i + 1;
             }
             console.log(main.teamObjArray);
 
@@ -274,3 +279,4 @@ app.controller('tableController', ['$http', '$routeParams', function($http, $rou
     this.loadTable();
 
 }]);
+//end

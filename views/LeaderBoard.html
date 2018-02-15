@@ -1,0 +1,53 @@
+<div class="matches text-center" ng-controller="tableController as tableCtrl"  >
+	<div class="logo">
+                    <img src="http://logok.org/wp-content/uploads/2014/11/Premier-League-logo-2016-640x480.png" alt="">    
+    </div>
+<div class="tableHeader">
+	<h3  text-center">{{tableCtrl.heading}}</h3>
+</div>
+    
+    <div class="subHeader">
+    	<a  href="/#!/" class="btn btn-primary" role="button">Home</a>
+    <h4 class=" text-center"><b>Premier League Table {{tableCtrl.selectedSeason}}</b></h4>	
+    </div>
+    
+    
+    
+    <div class="table-details text-center">
+  		<div class="headerDetails">
+  			
+  			<ul class="table-header list-inline">
+        	<li ng-click="orderByField = 'position'; reverseSort = !reverseSort">#</li>
+        	<li id ="club" ng-click="orderByField = 'name'; reverseSort = !reverseSort">Club</li>
+        	<li>M</li>
+        	<li ng-click="orderByField = '-wins'; reverseSort = !reverseSort">W</li>
+        	<li ng-click="orderByField = '-drawn'; reverseSort = !reverseSort">D</li>
+        	<li ng-click="orderByField = '-lost'; reverseSort = !reverseSort">L</li>
+        	<li ng-click="orderByField = '-GF'; reverseSort = !reverseSort" class="contentHide">GF</li>
+        	<li ng-click="orderByField = '-GA'; reverseSort = !reverseSort" class="contentHide">GA</li>
+        	<li ng-click="orderByField = '-GD'; reverseSort = !reverseSort" class="contentHide">GD</li>
+        	<li ng-click="orderByField = '-Points'; reverseSort = !reverseSort">Pts </li>
+        </ul>	
+  		</div>      
+        
+        <div class="teamDetails">
+        	<ul class="list-inline teamDetails" ng-repeat="x in tableCtrl.teamObjArray | orderBy:orderByField:reverseSort">
+        	<li>{{x.position}}</li>
+        	<li id="clubName" class="contentHide">{{x.name}}</li>
+        	<li class="codeShow" id="teamCode">{{x.code}}</li>
+        	<li>38</li>
+        	<li>{{x.wins}}</li>
+        	<li>{{x.drawn}}</li>
+        	<li>{{x.lost}}</li>
+        	<li class="contentHide">{{x.GF}}</li>
+        	<li class="contentHide">{{x.GA}}</li>
+        	<li class="contentHide">{{x.GD}}</li>
+           	<li>{{x.Points}}</li>
+        </ul>
+
+
+        </div>
+                
+    </div>
+    <h6>* Click on table Headers to sort the table*</h6>
+</div>

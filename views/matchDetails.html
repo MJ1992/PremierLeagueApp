@@ -1,0 +1,19 @@
+<div class="matchDetails" >
+    <div class="detailHeader">
+        <h3 class=" text-center">{{detailCtrl.heading}}</h3>
+    </div>
+    <div class="dayDetails">
+        <h4 class=" text-center">{{detailCtrl.matchDayName}}</h4>
+        <h4 class=" text-center">{{detailCtrl.date |date:"mediumDate"}}</h4>
+    </div>
+    <div class="scoreDetails text-center">
+        <span>{{detailCtrl.teamName1}}<span> vs <span>{{detailCtrl.teamName2}}</span>
+        <br>
+        <span>{{detailCtrl.teamCode1}}    {{detailCtrl.teamScore1}}<span>  -  <span>{{detailCtrl.teamScore2}}    {{detailCtrl.teamCode2}}</span>
+        <br>
+        <span>Home<span> - <span>Away</span>
+    </div>
+    <div class="homeButton text-center">
+        <a href="/#!/" class="btn btn-primary" role="button">Home</a>
+    </div>
+</div>

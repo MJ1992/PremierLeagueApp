@@ -1,0 +1,47 @@
+<div class="matches">
+    <div class="Header">
+        <div class="logo">
+            <img src="http://logok.org/wp-content/uploads/2014/11/Premier-League-logo-2016-640x480.png" alt="">
+        </div>
+        <h3 class="Heading text-center">{{matchCtrl.heading}}</h3>
+        <div class="header-part text-center">
+            <select class="dropdown " ng-model='matchCtrl.selectedSeason' ng-change='matchCtrl.loadAllMatches()'>
+                <option value="" disabled selected>Select Season</option>
+                <option ng-repeat="x in matchCtrl.names" value="{{x}}">{{x}}</option>
+            </select>
+            <p>Season: {{matchCtrl.selectedSeason}}</p>
+            <a ng-show="matchCtrl.selectedSeason" href="/#!/LeaderBoard/{{matchCtrl.selectedSeason}}" class="btn btn-info" role="button">LeaderBoard</a>
+            <br>
+        </div>
+    </div>
+    <div class="searchFilter" ng-show="matchCtrl.selectedSeason">
+        <div class="box">
+            <div class="container-1">
+                <input placeholder="Search By MatchDay Name.." ng-model="matchCtrl.query1" />
+                <input placeholder="Search By Date (yyyy-mm-dd).." ng-model="matchCtrl.query2" />
+                <input placeholder="Search By Team Name.." ng-model="matchCtrl.query3" />
+                <input placeholder="Search By Team1 Code.." ng-model="matchCtrl.query4" />
+                <input placeholder="Search By Team2 Code.." ng-model="matchCtrl.query5" />
+                <input placeholder="Search By Team1 Goals.." ng-model="matchCtrl.query6" />
+                <input placeholder="Search By Team2 Goals.." ng-model="matchCtrl.query7" />
+            </div>
+        </div>
+    </div>
+    <ul class="list-group">
+        <div class="fixtures">
+            <h2 class="text-center" ng-show="matchCtrl.selectedSeason">Fixtures</h2>
+        </div>
+        <li class="MatchDay list-group-item" ng-show="Matches.length>0" ng-repeat="matchDay in matchCtrl.rounds | filter:matchCtrl.query1| filter:matchCtrl.query2 ">
+            <h4>{{matchDay.name + ": " }} <span>{{matchDay.matches[0].date |date:"mediumDate"}}</span></h4>
+            <ul class="Matches list-group">
+                <div class="MatchListItem">
+                    <li class=" list-group-item text-center" ng-repeat="match in Matches =(matchDay.matches | filter:matchCtrl.query3| filter:{team1: {code:matchCtrl.query4}}| filter:{team2: {code:matchCtrl.query5}}| filter:{score1:matchCtrl.query6} | filter:{score2:matchCtrl.query7}) " ng-click="matchCtrl.setMatchData(match)">
+                        <span><a  href='/#!/matchDetails/{{matchCtrl.selectedSeason}}/{{matchDay.name}}/{{matchDay.matches[0].date}}/{{match.team1.code}}/vs/{{match.team2.code}}'>{{match.team1.name}} vs {{match.team2.name}}</a></span>
+                        <br>
+                        <span>{{match.team1.code}} {{match.score1}} : {{match.score2}} {{match.team2.code}}</span>
+                    </li>
+                </div>
+            </ul>
+        </li>
+    </ul>
+</div>
